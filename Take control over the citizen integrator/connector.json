@@ -1,0 +1,65 @@
+swagger: '2.0'
+info: {title: NICConference, description: This is to show you all!, version: '1.0'}
+host: nicconfsentimentscore.cognitiveservices.azure.com
+basePath: /
+schemes: [https]
+consumes: []
+produces: []
+paths:
+  /text/analytics/v2.0/sentiment:
+    post:
+      responses:
+        default:
+          description: default
+          schema:
+            type: object
+            properties:
+              documents:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    score: {type: integer, format: int32, description: score}
+                    id: {type: string, description: id}
+                description: documents
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: {type: string, description: id}
+                    message: {type: string, description: message}
+                description: errors
+      summary: Returns a numeric score representing the sentiment detected
+      description: The API returns a numeric score between 0 and 1. Scores close to
+        1 indicate positive sentiment, while scores close to 0 indicate negative sentiment.
+      operationId: DetectSentiment
+      parameters:
+      - name: body
+        in: body
+        required: false
+        schema:
+          type: object
+          properties:
+            documents:
+              type: array
+              items:
+                type: object
+                properties:
+                  language: {type: string, description: The 2 or 4 character language
+                      code for the tex, title: Language, default: en}
+                  id: {type: integer, description: An identifier for each document
+                      that you submitted, title: ID, format: int32, default: 1}
+                  text: {type: string, description: The text to analyze for sentiment,
+                    title: Text}
+                required: [id, language, text]
+              description: documents
+          required: [documents]
+definitions: {}
+parameters: {}
+responses: {}
+securityDefinitions:
+  API Key: {type: apiKey, in: header, name: Ocp-Apim-Subscription-Key}
+security:
+- API Key: []
+tags: []
